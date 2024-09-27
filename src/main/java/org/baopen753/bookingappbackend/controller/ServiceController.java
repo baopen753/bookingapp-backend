@@ -1,0 +1,81 @@
+package org.baopen753.bookingappbackend.controller;
+
+import org.baopen753.bookingappbackend.dto.ServiceDto;
+import org.baopen753.bookingappbackend.entity.Service;
+import org.baopen753.bookingappbackend.exception.AppointmentServiceNotFoundException;
+import org.baopen753.bookingappbackend.mapper.ServiceMapper;
+import org.baopen753.bookingappbackend.service.serviceservice.ServiceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/api/v1/services")
+public class ServiceController {
+
+    private final ServiceService serviceServiceImpl;
+    private final ServiceMapper serviceMapper;
+
+    @Autowired
+    public ServiceController(ServiceService serviceServiceImpl, ServiceMapper serviceMapper) {
+        this.serviceServiceImpl = serviceServiceImpl;
+        this.serviceMapper = serviceMapper;
+    }
+
+    /*
+     * Return list of available services
+     * */
+    @GetMapping
+    public ResponseEntity<?> getAllServices() {
+
+        List<Service> services = serviceServiceImpl.getAllServices();
+
+
+        if (services.isEmpty()) { //There are no services
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            // Mapping to DTOs
+            List<ServiceDto> serviceDtos = services.stream()
+                    .map(serviceMapper::convertToServiceDTO)
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(serviceDtos, HttpStatus.OK);
+        }
+    }
+
+    /*
+    * Find a service by ID
+    * */
+    @GetMapping("/{serviceID}")
+    public ResponseEntity<?> getServiceById(@PathVariable("serviceID") Integer serviceId) {
+        try {
+            Service service = serviceServiceImpl.getServiceById(serviceId);
+            ServiceDto serviceDTO = serviceMapper.convertToServiceDTO(service);
+            return new ResponseEntity<>(serviceDTO, HttpStatus.OK);
+        } catch (AppointmentServiceNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /*
+     * Update price of a service
+     * */
+    @PutMapping("/{serviceID}")
+
+    public ResponseEntity<?> updateService(
+            @PathVariable("serviceID") Integer serviceID,
+            @RequestBody ServiceDto serviceFromRequest) {
+        try {
+            Service service = serviceMapper.convertToService(serviceFromRequest);
+            serviceServiceImpl.updateService(serviceID, service);
+            return new ResponseEntity<>(serviceFromRequest, HttpStatus.OK);
+        } catch (AppointmentServiceNotFoundException e) { // Service not found
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) { // Other exceptions
+            return new ResponseEntity<>("Service Update Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+}
