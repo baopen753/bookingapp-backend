@@ -69,4 +69,15 @@ public class UserController {
         }
 
     }
+
+    @GetMapping("/vip")
+    public String zoneVip() {
+        return "zone vip";
+    }
+
+    @GetMapping("/normal")
+    public String zoneNormal() {
+        return "zone normal";
+    }
+
 }
