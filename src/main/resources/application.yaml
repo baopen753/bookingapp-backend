@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: bookingapp-backend
+
+  # config database server
+  datasource:
+    url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_NAME:koi_fish_veterinary_service}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+  # config jpa
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+# config logging pattern & logging pattern
+logging:
+  pattern:
+    console: ${LOG_PATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
+
+  level:
+    org:
+      springframework:
+        security: trace
+
+
+
+
+
+
+
+# config jpa
