@@ -11,6 +11,7 @@ import org.baopen753.bookingappbackend.service.userservice.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -70,6 +71,8 @@ public class UserController {
 
     }
 
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/vip")
     public String zoneVip() {
         return "zone vip";
