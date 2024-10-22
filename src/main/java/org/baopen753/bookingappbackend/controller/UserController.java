@@ -1,6 +1,7 @@
 package org.baopen753.bookingappbackend.controller;
 
 
+import jakarta.annotation.security.RolesAllowed;
 import org.baopen753.bookingappbackend.dto.AddressDto;
 import org.baopen753.bookingappbackend.dto.UserDto;
 import org.baopen753.bookingappbackend.entity.Address;
@@ -11,7 +12,8 @@ import org.baopen753.bookingappbackend.service.userservice.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -72,15 +74,21 @@ public class UserController {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @RolesAllowed({"ADMIN"})
     @GetMapping("/vip")
     public String zoneVip() {
         return "zone vip";
     }
 
+    @RolesAllowed({"USER", "ADMIN"})
     @GetMapping("/normal")
     public String zoneNormal() {
         return "zone normal";
+    }
+
+    @GetMapping("/info")
+    public Authentication info() {
+        return SecurityContextHolder.getContext().getAuthentication();
     }
 
 }

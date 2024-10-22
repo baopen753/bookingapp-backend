@@ -21,13 +21,6 @@ spring:
         show_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
 
-  # config security
-  security:
-    user:
-      name: baopen753
-      password: baopen753
-      roles:
-        - USER
 
 
 # config logging pattern & logging pattern
