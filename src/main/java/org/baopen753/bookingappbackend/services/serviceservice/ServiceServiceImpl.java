@@ -1,6 +1,6 @@
 package org.baopen753.bookingappbackend.services.serviceservice;
 
-import org.baopen753.bookingappbackend.models.Service;
+import org.baopen753.bookingappbackend.entities.Service;
 import org.baopen753.bookingappbackend.exception.AppointmentServiceNotFoundException;
 import org.baopen753.bookingappbackend.repositories.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;

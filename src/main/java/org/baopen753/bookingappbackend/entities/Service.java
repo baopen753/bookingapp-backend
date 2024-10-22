@@ -1,8 +1,7 @@
-package org.baopen753.bookingappbackend.models;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
@@ -30,7 +29,7 @@ public class Service {
     private String serviceName;
 
     //    @Lob
-    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "description", nullable = false)
     private String description;
 
     @Column(name = "service_price", nullable = false, precision = 10, scale = 2)   // decimal(6,2)

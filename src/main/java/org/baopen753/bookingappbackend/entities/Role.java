@@ -1,12 +1,20 @@
-package org.baopen753.bookingappbackend.models;
+package org.baopen753.bookingappbackend.entities;
 
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@Getter
+@Setter
+@Builder
+
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+
 @Table(name = "roles")
 public class Role {
 
@@ -25,7 +33,7 @@ public class Role {
     // Bidirectional, identifying relationship
     // owning side: User
     // inverse side: Role
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private Set<User> users = new LinkedHashSet<>();
 
 

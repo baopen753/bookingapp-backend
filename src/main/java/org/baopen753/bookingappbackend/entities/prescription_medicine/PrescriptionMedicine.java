@@ -1,15 +1,19 @@
-package org.baopen753.bookingappbackend.models.prescription_medicine;
+package org.baopen753.bookingappbackend.entities.prescription_medicine;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.baopen753.bookingappbackend.models.Medicine;
-import org.baopen753.bookingappbackend.models.Prescription;
+import org.baopen753.bookingappbackend.entities.Medicine;
+import org.baopen753.bookingappbackend.entities.Prescription;
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "prescription_medicine")
 public class PrescriptionMedicine {
 
@@ -35,4 +39,8 @@ public class PrescriptionMedicine {
     @JoinColumn(name = "prescription_id", nullable = false, referencedColumnName = "prescription_id")
     private Prescription prescription;
 
+    public PrescriptionMedicine(PrescriptionMedicineId prescriptionMedicineId, Integer quantity) {
+        this.prescriptionMedicineId = prescriptionMedicineId;
+        this.quantity = quantity;
+    }
 }

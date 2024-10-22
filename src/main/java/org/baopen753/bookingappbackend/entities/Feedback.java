@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.models;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,8 +21,8 @@ public class Feedback {
     @Column(name = "rating", nullable = true)
     private Integer rating;
 
-//    @Lob
-    @Column(name = "comment", nullable = true, columnDefinition = "TEXT")
+    //  @Lob
+    @Column(name = "comment", nullable = true)
     private String comment;
 
     @Column(name = "datetime", nullable = false, columnDefinition = "DATETIME")
@@ -52,7 +52,7 @@ public class Feedback {
     // Bidirectional, non-identifying relationship
     // Owning side: Appointment
     // Inverse side: Feedback
-    @OneToOne(mappedBy = "feedback")
+    @OneToOne(mappedBy = "feedback", fetch = FetchType.LAZY)
     private Appointment appointment;
 
 }

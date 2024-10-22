@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.models;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,19 +16,18 @@ public class MedicalReport {
     private Integer reportId;
 
 //    @Lob
-    @Column(name = "conclusion", nullable = true, columnDefinition = "TEXT")
+    @Column(name = "conclusion", nullable = true)
     private String conclusion;
 
 
 //    @Lob
-    @Column(name = "advise", nullable = true, columnDefinition = "TEXT")
+    @Column(name = "advise", nullable = true)
     private String advise;
 
 
     // Uni-directional, identifying relationship
     // Owning side: MedicalReport
     // Inverse side: User
-    @MapsId("veterinarianId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "veterinarian_id", nullable = false, referencedColumnName = "user_id")
     private User veterinarian;

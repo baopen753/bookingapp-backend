@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.models;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class Payment {
     @Column(name = "payment_method", nullable = false)
     private PaymentMethod paymentMethod;
 
-    @Column(name = "transaction_time", nullable = false, columnDefinition = "DATETIME")
+    @Column(name = "transaction_time", nullable = false)
     private LocalDateTime transactionTime;
 
     @Column(name = "transaction_id", length = 100, nullable = true, unique = true)
@@ -35,7 +35,7 @@ public class Payment {
     private BigDecimal amount;
 
 //    @Lob
-    @Column(name = "description", nullable = true, columnDefinition = "TEXT")
+    @Column(name = "description", nullable = true)
     private String description;
 
     @Enumerated(EnumType.STRING)

@@ -1,7 +1,7 @@
 package org.baopen753.bookingappbackend.mappers;
 
 import org.baopen753.bookingappbackend.dtos.AddressDto;
-import org.baopen753.bookingappbackend.models.Address;
+import org.baopen753.bookingappbackend.entities.Address;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

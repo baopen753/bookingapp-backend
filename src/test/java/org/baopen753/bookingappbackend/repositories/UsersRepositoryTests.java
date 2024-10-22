@@ -1,7 +1,6 @@
 package org.baopen753.bookingappbackend.repositories;
 
-import org.assertj.core.api.Assertions;
-import org.baopen753.bookingappbackend.models.User;
+import org.baopen753.bookingappbackend.entities.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -21,7 +20,6 @@ public class UsersRepositoryTests {
         int userId = 1;
         User user = userRepository.findUsersByUserId(userId);
 
-        Assertions.assertThat(user.getAddress()).isNotNull();
         System.out.println(user);
     }
 

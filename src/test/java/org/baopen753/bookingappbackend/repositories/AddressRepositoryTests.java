@@ -1,7 +1,7 @@
 package org.baopen753.bookingappbackend.repositories;
 
 import org.assertj.core.api.Assertions;
-import org.baopen753.bookingappbackend.models.Address;
+import org.baopen753.bookingappbackend.entities.Address;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

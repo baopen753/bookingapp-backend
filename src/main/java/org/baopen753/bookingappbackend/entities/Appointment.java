@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.models;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,16 +30,21 @@ public class Appointment {
     @ColumnDefault("'PENDING'")
     private AppointmentStatus currentStatus;
 
-    @Column(name = "cusomter_name", nullable = false, length = 100)
+    @Column(name = "customer_name", nullable = false, length = 100)
     private String customerName;
 
-//    @Lob
-    @Column(name = "description", nullable = true, columnDefinition = "TEXT")
+    @Column(name = "email", nullable = true, length = 50, unique = true)
+    private String email;
+
+    @Column(name = "phone_number", nullable = true, length = 10)
+    private String phoneNumber;
+
+    //    @Lob
+    @Column(name = "description", nullable = true)
     private String description;
 
     @Column(name = "total_price", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalPrice;
-
 
     // Bidirectional, identifying relationship
     // Owning side: Appointment
@@ -47,7 +52,6 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "service_id", nullable = false, referencedColumnName = "service_id")
     private Service service;
-
 
     // Unidirectional, non-identifying relationship
     // Owning side: Appointment
@@ -97,8 +101,9 @@ public class Appointment {
     // Bidirectional, identifying relationship
     // Owning side: Appointment
     // Inverse side: User(veterinarian)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "veterinarian_id", nullable = false, referencedColumnName = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "veterinarian_id", nullable = true, referencedColumnName = "user_id")
+    // set 'insertable = false' in case of adding appointment without assigned veterinarian
     private User veterinarian;
 
     // Bidirectional, non-identifying relationship
@@ -131,8 +136,15 @@ public class Appointment {
     // Bidirectional, identifying relationship
     // Owning side: Status
     // Inverse side: Appointment
-    @OneToMany(mappedBy = "appointment")
+    @OneToMany(mappedBy = "appointment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Status> statuses = new LinkedHashSet<>();
+
+
+    public void addStatus(Status status) {
+        status.setAppointment(this);
+        this.statuses.add(status);
+    }
+
 
 
 }

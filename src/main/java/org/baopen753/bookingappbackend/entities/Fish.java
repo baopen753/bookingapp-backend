@@ -1,9 +1,11 @@
-package org.baopen753.bookingappbackend.models;
+package org.baopen753.bookingappbackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.baopen753.bookingappbackend.enums.Gender;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
@@ -42,6 +44,10 @@ public class Fish {
     @Column(name = "origin", nullable = false, length = 45)
     private String origin;
 
+    @ColumnDefault("b'1'")
+    @Column(name = "enable", nullable = false)
+    private boolean enabled = true;
+
 
     // Bidirectional, identifying relationship
     // Owning side: Fish
@@ -53,14 +59,16 @@ public class Fish {
     // Bidirectional, non-identifying relationship
     // Owning side: Appointment
     // Inverse side: Fish
-    @OneToMany(mappedBy = "fish")
+    @OneToMany(mappedBy = "fish", fetch = FetchType.LAZY)
     private Set<Appointment> appointments = new LinkedHashSet<>();
 
     // Bidirectional, identifying relationship
     // Owning side: Image
     // Inverse side: Fish
-    @OneToMany(mappedBy = "fish")
+    @OneToMany(mappedBy = "fish", fetch = FetchType.LAZY)
+    @JsonManagedReference // Thêm annotation này
     private Set<Image> images = new LinkedHashSet<>();
 
 
 }
+

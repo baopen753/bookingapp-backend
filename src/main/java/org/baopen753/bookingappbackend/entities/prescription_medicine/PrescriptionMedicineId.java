@@ -1,8 +1,10 @@
-package org.baopen753.bookingappbackend.models.prescription_medicine;
+package org.baopen753.bookingappbackend.entities.prescription_medicine;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
@@ -10,6 +12,9 @@ import java.util.Objects;
 @Getter
 @Setter
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class PrescriptionMedicineId {
 
     @Column(name = "prescription_id", nullable = false)

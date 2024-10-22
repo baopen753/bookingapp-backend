@@ -1,6 +1,6 @@
 package org.baopen753.bookingappbackend.services.serviceservice;
 
-import org.baopen753.bookingappbackend.models.Service;
+import org.baopen753.bookingappbackend.entities.Service;
 
 import java.util.List;
 

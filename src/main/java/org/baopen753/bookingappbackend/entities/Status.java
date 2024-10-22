@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.models;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,8 +25,7 @@ public class Status {
     @Column(name = "time", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime time;
 
-    //@Lob --- use columnDefinition = "TEXT" to define type of field in database
-    @Column(name = "note", nullable = true, columnDefinition = "TEXT")
+    @Column(name = "note", nullable = true)
     private String note;
 
     // Bidirectional, identifying relationship

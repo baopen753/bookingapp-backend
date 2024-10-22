@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.models.veterinarian_slots;
+package org.baopen753.bookingappbackend.entities.veterinarian_slots;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

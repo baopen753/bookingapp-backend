@@ -1,7 +1,7 @@
 package org.baopen753.bookingappbackend.mappers;
 
 import org.baopen753.bookingappbackend.dtos.UserDto;
-import org.baopen753.bookingappbackend.models.User;
+import org.baopen753.bookingappbackend.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -18,7 +18,7 @@ public interface UserMapper {
             @Mapping(source = "email", target = "email"),
             @Mapping(source = "phoneNumber", target = "phoneNumber"),
             @Mapping(source = "avatar", target = "avatar"),
-            @Mapping(source = "address", target = "address")
+            @Mapping(target = "address", ignore = true)
     })
     UserDto convertEntityToDto(User user);
 
@@ -29,7 +29,7 @@ public interface UserMapper {
             @Mapping(source = "email", target = "email"),
             @Mapping(source = "phoneNumber", target = "phoneNumber"),
             @Mapping(source = "avatar", target = "avatar"),
-            @Mapping(source = "address", target = "address")
+            @Mapping(target = "addresses", ignore = true)
     })
     User convertDtoToEntity(UserDto userDto);
 

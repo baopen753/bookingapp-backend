@@ -1,6 +1,6 @@
 package org.baopen753.bookingappbackend.services.surchargeservice;
 
-import org.baopen753.bookingappbackend.models.MovingSurcharge;
+import org.baopen753.bookingappbackend.entities.MovingSurcharge;
 import org.baopen753.bookingappbackend.exception.MovingSurchargeNotFoundException;
 import org.baopen753.bookingappbackend.repositories.MovingSurchargeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
