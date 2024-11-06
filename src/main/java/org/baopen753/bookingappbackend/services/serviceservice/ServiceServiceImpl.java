@@ -1,16 +1,16 @@
 package org.baopen753.bookingappbackend.services.serviceservice;
 
 import org.baopen753.bookingappbackend.entities.Service;
-import org.baopen753.bookingappbackend.exception.AppointmentServiceNotFoundException;
+import org.baopen753.bookingappbackend.exception.DataNotFoundException;
 import org.baopen753.bookingappbackend.repositories.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
 @org.springframework.stereotype.Service
 public class ServiceServiceImpl implements ServiceService {
-
 
     private final ServiceRepository serviceRepository;
 
@@ -22,17 +22,17 @@ public class ServiceServiceImpl implements ServiceService {
     /*
      * Get all available services
      * */
+    @Override
     public List<Service> getAllServices() {
-        List<Service> services = serviceRepository.findAll();
-        return services;
+        return serviceRepository.findAll();
     }
 
 
     @Override
-    public Service getServiceById(Integer serviceId) throws AppointmentServiceNotFoundException {
+    public Service getServiceById(Integer serviceId) {
         Service service = serviceRepository.findById(serviceId).orElse(null);
-        if (service == null){
-            throw new AppointmentServiceNotFoundException("Service not found with ID: " + serviceId);
+        if (service == null) {
+            throw new DataNotFoundException("Service", serviceId);
         }
         return service;
     }
@@ -42,16 +42,15 @@ public class ServiceServiceImpl implements ServiceService {
      * Update price of service
      * */
     @Override
-    public Service updateService(Integer serviceId, Service serviceFromRequest) throws AppointmentServiceNotFoundException {
+    public Service updateServicePrice(Integer serviceId, double servicePrice) {
 
         // check service existed from db
         Service serviceFromDb = serviceRepository.findById(serviceId).orElse(null);
         if (serviceFromDb == null) {
-            throw new AppointmentServiceNotFoundException("Service not found with ID: " + serviceId);
+            throw new DataNotFoundException("Service", serviceId);
         }
-        serviceFromDb = serviceRepository.save(serviceFromRequest);
-        return serviceFromDb;
-
+        serviceFromDb.setServicePrice(BigDecimal.valueOf(servicePrice));
+        return serviceRepository.save(serviceFromDb);
     }
 
 }

@@ -10,11 +10,9 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ServiceDto {
-
 
     @JsonProperty("service_id")
     private Integer serviceId;

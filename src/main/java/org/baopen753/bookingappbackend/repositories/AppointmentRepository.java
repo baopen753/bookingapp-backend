@@ -11,6 +11,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
     @Query("SELECT a FROM Appointment a WHERE a.customer.userId = :customerId ")
     List<Appointment> findAppointmentByCustomerId(Integer customerId);
 
+    List<Appointment> findAppointmentByCustomer_UserId(Integer customerId);
+
+
     @Query("SELECT a FROM Appointment a WHERE a.payment.paymentId =: paymentId")
     Appointment findAppointmentByPaymentId(Integer paymentId);
 }

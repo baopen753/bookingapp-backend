@@ -8,13 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest // enables JPA testing
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-// Replace.NONE means telling Spring Boot use the existing database for testing
+@ActiveProfiles("test")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)  // Replace.NONE means telling Spring Boot use the existing database for testing
 @Rollback
 public class ServiceRepositoryTests {
 

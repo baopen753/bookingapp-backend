@@ -13,10 +13,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findUsersByUserId(int userId);
 
-    @Query("SELECT u FROM User u WHERE u.userId = :veterinarianId AND u.role.roleKey = 'VET'")
+    @Query("SELECT u FROM User u WHERE u.userId = :veterinarianId AND u.role = 'VETERINARIAN'")
     User findVeterinarianById(@Param("veterinarianId") Integer veterinarianId);
 
-    @Query("SELECT u FROM User u WHERE u.userId = :customerId AND u.role.roleKey = 'CUS'")
+    @Query("SELECT u FROM User u WHERE u.userId = :customerId AND u.role = 'CUSTOMER'")
     User findCustomerById(@Param("customerId") Integer customerId);
 
 
@@ -24,12 +24,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findAllByRole(Role role);
 
-    List<User> findAllByRoleRoleId(int roleId);
-
+    List<User> findUserByRole(Role role);
 
     Optional<User> findByUsername(String username);
-
-    User findUserByUsername(String username);
 
     User findUserByEmail(String email);
 

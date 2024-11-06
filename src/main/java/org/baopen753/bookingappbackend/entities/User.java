@@ -10,7 +10,6 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
-
 @Getter
 @Setter
 @Builder
@@ -49,19 +48,15 @@ public class User {
     @Column(name = "avatar", nullable = true, length = 255)
     private String avatar;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private org.baopen753.bookingappbackend.enums.Role role;
+
     @ColumnDefault("b'1'")
     @Column(name = "enable", nullable = false)
     private boolean enabled = true;
 
 
-    // Uni-directional, identifying relationship
-    // owning side: User
-    // inverse side: Role
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)  // optional = false  <-> user must have a role
-    @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "role_id")
-    private Role role;
 
 
     // Uni-directional, non-identifying relationship
@@ -83,6 +78,9 @@ public class User {
     // orphanRemoval: true -->  remove User then all related Fishes will be removed
     private Set<Fish> fishes = new LinkedHashSet<>();
 
+
+
+
     // Bidirectional, identifying relationship
     // Owning side: Appointment
     // Inverse side: User(customer)
@@ -91,6 +89,9 @@ public class User {
     @OneToMany(mappedBy = "customer")
     private Set<Appointment> allBookedAppointmentOfCustomer = new LinkedHashSet<>();
 
+
+
+
     // Bidirectional, identifying relationship
     // Owning side: Appointment
     // Inverse side: User(veterinarian)
@@ -98,6 +99,9 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "veterinarian")
     private Set<Appointment> allAssignedAppointmentOfVeterinarian = new LinkedHashSet<>();
+
+
+
 
     // Bidirectional, identifying  relationship
     // Owning side: VeterinarianSlots
