@@ -32,6 +32,9 @@ public class UserDto {
     @JsonProperty("phone_number")
     public String phoneNumber;
 
+    @JsonProperty("role")
+    public String role;
+
     @JsonProperty("avatar")
     public String avatar;
 

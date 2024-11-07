@@ -1,13 +1,19 @@
 package org.baopen753.bookingappbackend.repositories;
 
 import org.baopen753.bookingappbackend.entities.User;
+import org.baopen753.bookingappbackend.services.userservice.MyUserDetailsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
+
+import java.util.Optional;
 
 @DataJpaTest
+@ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback
 public class UsersRepositoryTests {
@@ -16,7 +22,7 @@ public class UsersRepositoryTests {
     private UserRepository userRepository;
 
     @Test
-    public void testGetUserSuccess(){
+    public void testGetUserSuccess() {
         int userId = 1;
         User user = userRepository.findUsersByUserId(userId);
 
@@ -24,7 +30,7 @@ public class UsersRepositoryTests {
     }
 
     @Test
-    public void testUpdateUserSuccess(){
+    public void testUpdateUserSuccess() {
         String firstName = "John_New";
 
         int userId = 1;
@@ -34,4 +40,11 @@ public class UsersRepositoryTests {
         System.out.println(user.getFirstName());
     }
 
+    @Test
+    public void testGetUserDetailService() {
+        String username = "sta_hoa";
+
+        Optional<User> user = userRepository.findByUsername(username);
+        System.out.println(user.get());
+    }
 }

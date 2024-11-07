@@ -1,11 +1,10 @@
 package org.baopen753.bookingappbackend.controllers;
 
-
 import jakarta.annotation.security.RolesAllowed;
 import org.baopen753.bookingappbackend.dtos.UserDto;
-import org.baopen753.bookingappbackend.entities.User;
-import org.baopen753.bookingappbackend.services.userservice.UserService;
+import org.baopen753.bookingappbackend.services.userservice.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,22 +15,22 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/users")
 public class UserController {
 
-    private final UserService userService;
+    private final MyUserDetailsService myUserService;
     private final PasswordEncoder passwordEncoder;
 
 
     @Autowired
-    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
+    public UserController(MyUserDetailsService userService, PasswordEncoder passwordEncoder) {
+        this.myUserService = userService;
         this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody UserDto userDto) {
+    public ResponseEntity<?> register(@RequestBody UserDto userDto) {
         String hashedPassword = passwordEncoder.encode(userDto.getPassword());
         userDto.setPassword(hashedPassword);
-        User registeredUser = userService.registerUser(userDto);
-        return ResponseEntity.ok(registeredUser);
+        myUserService.registerUser(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Register account successfully !");
     }
 
 

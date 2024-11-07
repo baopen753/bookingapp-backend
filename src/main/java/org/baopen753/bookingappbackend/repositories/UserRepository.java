@@ -13,11 +13,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findUsersByUserId(int userId);
 
-    @Query("SELECT u FROM User u WHERE u.userId = :veterinarianId AND u.role = 'VETERINARIAN'")
-    User findVeterinarianById(@Param("veterinarianId") Integer veterinarianId);
+    @Query("SELECT u FROM User u WHERE u.userId = :veterinarianId AND u.role = :role")
+    User findVeterinarianById(@Param("veterinarianId") Integer veterinarianId, @Param("role") Role role);
 
-    @Query("SELECT u FROM User u WHERE u.userId = :customerId AND u.role = 'CUSTOMER'")
-    User findCustomerById(@Param("customerId") Integer customerId);
+    @Query("SELECT u FROM User u WHERE u.userId = :customerId AND u.role = :role")
+    User findCustomerById(@Param("customerId") Integer customerId, @Param("role") Role role);
 
 
     boolean existsUserByPhoneNumber(String phoneNumber);
