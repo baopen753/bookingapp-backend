@@ -39,7 +39,8 @@ public class Appointment {
     @Column(name = "phone_number", nullable = true, length = 10)
     private String phoneNumber;
 
-    @Column(name = "description", nullable = true, columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "description", nullable = true)
     private String description;
 
     @Column(name = "total_price", nullable = false, precision = 10, scale = 2)

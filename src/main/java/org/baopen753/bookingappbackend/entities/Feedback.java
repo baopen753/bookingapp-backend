@@ -23,7 +23,7 @@ public class Feedback {
     private Integer rating;
 
 
-    @Column(name = "comment", nullable = true, columnDefinition = "TEXT")
+    @Column(name = "comment", nullable = true)
     private String comment;
 
     @Column(name = "datetime", nullable = false)

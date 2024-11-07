@@ -25,7 +25,7 @@ public class Voucher {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "discount_amount")
+    @Column(name = "discount_amount", precision = 10, scale = 2)
     private BigDecimal discountAmount;
 
     @Column(name = "status")

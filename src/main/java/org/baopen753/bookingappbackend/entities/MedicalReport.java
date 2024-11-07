@@ -15,11 +15,11 @@ public class MedicalReport {
     @Column(name = "report_id", nullable = false)
     private Integer reportId;
 
-    @Column(name = "conclusion", nullable = true , columnDefinition = "TEXT")
+    @Column(name = "conclusion", nullable = true )
     private String conclusion;
 
 
-    @Column(name = "advise", nullable = true , columnDefinition = "TEXT")
+    @Column(name = "advise", nullable = true )
     private String advise;
 
 

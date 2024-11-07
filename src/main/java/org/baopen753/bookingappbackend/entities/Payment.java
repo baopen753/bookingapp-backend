@@ -34,7 +34,7 @@ public class Payment {
     @Column(name = "amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
-    @Column(name = "description", nullable = true , columnDefinition = "TEXT")
+    @Column(name = "description", nullable = true)
     private String description;
 
     @Enumerated(EnumType.STRING)

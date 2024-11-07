@@ -22,7 +22,7 @@ public class Prescription {
     @Column(name = "prescription_id", nullable = false)
     private Integer prescriptionId;
 
-    @Column(name = "instruction", nullable = false , columnDefinition = "TEXT")
+    @Column(name = "instruction", nullable = false )
     private String instruction;
 
     // Bidirectional, identifying  relationship

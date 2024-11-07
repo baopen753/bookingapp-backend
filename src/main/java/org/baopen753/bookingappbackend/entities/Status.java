@@ -3,6 +3,7 @@ package org.baopen753.bookingappbackend.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.baopen753.bookingappbackend.enums.LogStatus;
 
 import java.time.LocalDateTime;
 
@@ -17,14 +18,14 @@ public class Status {
     @Column(name = "status_id", nullable = false)
     private Integer statusId;
 
-    //    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     @Column(name = "status_name", nullable = false)
-    private  statusName;
+    private LogStatus statusName;
 
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
 
-    @Column(name = "note", nullable = true, columnDefinition = "TEXT")
+    @Column(name = "note", nullable = true)
     private String note;
 
     // Bidirectional, identifying relationship
