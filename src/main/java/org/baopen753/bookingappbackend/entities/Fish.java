@@ -1,12 +1,11 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.baopen753.bookingappbackend.enums.Gender;
-import org.hibernate.annotations.ColumnDefault;
-
+ 
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -44,7 +43,7 @@ public class Fish {
     @Column(name = "origin", nullable = false, length = 45)
     private String origin;
 
-    @ColumnDefault("b'1'")
+     
     @Column(name = "enable", nullable = false)
     private boolean enabled = true;
 

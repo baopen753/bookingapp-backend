@@ -2,5 +2,10 @@ package org.baopen753.bookingappbackend.enums;
 
 public enum PaymentMethod {
     CASH,
-    VN_PAY
+    VN_PAY;
+
+    public enum PaymentMethod {
+        CASH,
+        VN_PAY
+    }
 }

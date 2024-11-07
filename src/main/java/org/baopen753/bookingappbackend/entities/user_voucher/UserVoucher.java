@@ -1,9 +1,10 @@
-package org.baopen753.bookingappbackend.entity.user_voucher;
+package org.baopen753.bookingappbackend.entities.user_voucher;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.ftf.koifishveterinaryservicecenter.entity.User;
-import org.ftf.koifishveterinaryservicecenter.entity.Voucher;
+import org.baopen753.bookingappbackend.entities.User;
+import org.baopen753.bookingappbackend.entities.Voucher;
+
 
 @Data
 @Entity

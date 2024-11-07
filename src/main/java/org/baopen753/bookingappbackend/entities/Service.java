@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,11 +10,8 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Builder
-
 @NoArgsConstructor
 @AllArgsConstructor
-
 
 @Entity
 @Table(name = "services")
@@ -28,8 +25,7 @@ public class Service {
     @Column(name = "service_name", length = 50, nullable = false)
     private String serviceName;
 
-    //    @Lob
-    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "description", nullable = false , columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "service_price", nullable = false, precision = 10, scale = 2)   // decimal(6,2)

@@ -1,11 +1,12 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.ftf.koifishveterinaryservicecenter.entity.prescription_medicine.PrescriptionMedicine;
+import org.baopen753.bookingappbackend.entities.prescription_medicine.PrescriptionMedicine;
 
 import java.util.Set;
+
 
 @Getter
 @Setter
@@ -21,8 +22,7 @@ public class Prescription {
     @Column(name = "prescription_id", nullable = false)
     private Integer prescriptionId;
 
-//    @Lob
-    @Column(name = "instruction", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "instruction", nullable = false , columnDefinition = "TEXT")
     private String instruction;
 
     // Bidirectional, identifying  relationship

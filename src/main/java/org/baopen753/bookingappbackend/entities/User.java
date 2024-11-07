@@ -1,12 +1,13 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.ftf.koifishveterinaryservicecenter.entity.user_voucher.UserVoucher;
-import org.ftf.koifishveterinaryservicecenter.entity.veterinarian_slots.VeterinarianSlots;
-import org.hibernate.annotations.ColumnDefault;
 
+import org.baopen753.bookingappbackend.entities.user_voucher.UserVoucher;
+import org.baopen753.bookingappbackend.entities.veterinarian_slots.VeterinarianSlots;
+import org.baopen753.bookingappbackend.enums.Role;
+ 
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,11 +15,8 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Builder
-
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -49,16 +47,12 @@ public class User {
     @Column(name = "avatar", nullable = true, length = 255)
     private String avatar;
 
-    @ColumnDefault("b'1'")
+     
     @Column(name = "enable", nullable = false)
     private boolean enabled = true;
 
-    // Uni-directional, identifying relationship
-    // owning side: User
-    // inverse side: Role
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)  // optional = false  <-> user must have a role
-    @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "role_id")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
     private Role role;
 
 

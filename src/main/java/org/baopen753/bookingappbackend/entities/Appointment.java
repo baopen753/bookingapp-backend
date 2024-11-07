@@ -1,9 +1,9 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.ftf.koifishveterinaryservicecenter.enums.AppointmentStatus;
+import org.baopen753.bookingappbackend.enums.AppointmentStatus;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
@@ -22,7 +22,7 @@ public class Appointment {
     @Column(name = "appointment_id", nullable = false)
     private Integer appointmentId;
 
-    @Column(name = "created_date", nullable = false, columnDefinition = "DATETIME")
+    @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
 
     @Enumerated(EnumType.STRING)
@@ -39,7 +39,6 @@ public class Appointment {
     @Column(name = "phone_number", nullable = true, length = 10)
     private String phoneNumber;
 
-    //    @Lob
     @Column(name = "description", nullable = true, columnDefinition = "TEXT")
     private String description;
 
@@ -151,7 +150,6 @@ public class Appointment {
         status.setAppointment(this);
         this.statuses.add(status);
     }
-
 
 
 }

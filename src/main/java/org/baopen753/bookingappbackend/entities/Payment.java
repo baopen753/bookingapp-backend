@@ -1,10 +1,10 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.ftf.koifishveterinaryservicecenter.enums.PaymentMethod;
-import org.ftf.koifishveterinaryservicecenter.enums.PaymentStatus;
+import org.baopen753.bookingappbackend.enums.PaymentMethod;
+import org.baopen753.bookingappbackend.enums.PaymentStatus;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
@@ -25,7 +25,7 @@ public class Payment {
     @Column(name = "payment_method", nullable = false)
     private PaymentMethod paymentMethod;
 
-    @Column(name = "transaction_time", nullable = false, columnDefinition = "DATETIME")
+    @Column(name = "transaction_time", nullable = false)
     private LocalDateTime transactionTime;
 
     @Column(name = "transaction_id", length = 100, nullable = true, unique = true)
@@ -34,8 +34,7 @@ public class Payment {
     @Column(name = "amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
-//    @Lob
-    @Column(name = "description", nullable = true, columnDefinition = "TEXT")
+    @Column(name = "description", nullable = true , columnDefinition = "TEXT")
     private String description;
 
     @Enumerated(EnumType.STRING)

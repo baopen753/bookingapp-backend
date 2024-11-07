@@ -6,5 +6,14 @@ public enum AppointmentStatus {
     CHECKED_IN,
     CANCELED,
     ON_GOING,
-    DONE
+    DONE;
+
+    public enum AppointmentStatus {
+        PENDING,
+        CONFIRMED,
+        CHECKED_IN,
+        CANCELED,
+        ON_GOING,
+        DONE
+    }
 }

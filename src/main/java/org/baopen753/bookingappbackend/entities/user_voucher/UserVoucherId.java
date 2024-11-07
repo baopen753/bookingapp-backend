@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.entity.user_voucher;
+package org.baopen753.bookingappbackend.entities.user_voucher;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

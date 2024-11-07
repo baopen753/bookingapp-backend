@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.entity.prescription_medicine;
+package org.baopen753.bookingappbackend.entities.prescription_medicine;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

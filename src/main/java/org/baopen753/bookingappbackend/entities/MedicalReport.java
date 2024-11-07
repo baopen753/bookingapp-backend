@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,13 +15,11 @@ public class MedicalReport {
     @Column(name = "report_id", nullable = false)
     private Integer reportId;
 
-//    @Lob
-    @Column(name = "conclusion", nullable = true, columnDefinition = "TEXT")
+    @Column(name = "conclusion", nullable = true , columnDefinition = "TEXT")
     private String conclusion;
 
 
-//    @Lob
-    @Column(name = "advise", nullable = true, columnDefinition = "TEXT")
+    @Column(name = "advise", nullable = true , columnDefinition = "TEXT")
     private String advise;
 
 

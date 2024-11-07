@@ -1,11 +1,11 @@
-package org.baopen753.bookingappbackend.entity.veterinarian_slots;
+package org.baopen753.bookingappbackend.entities.veterinarian_slots;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.ftf.koifishveterinaryservicecenter.entity.TimeSlot;
-import org.ftf.koifishveterinaryservicecenter.entity.User;
-import org.ftf.koifishveterinaryservicecenter.enums.SlotStatus;
+import org.baopen753.bookingappbackend.entities.TimeSlot;
+import org.baopen753.bookingappbackend.entities.User;
+import org.baopen753.bookingappbackend.enums.SlotStatus;
 import org.hibernate.annotations.ColumnDefault;
 
 @Getter

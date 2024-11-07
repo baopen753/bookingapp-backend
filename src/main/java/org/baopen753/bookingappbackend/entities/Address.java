@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,7 +6,6 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -27,7 +26,7 @@ public class Address {
     @Column(name = "ward", length = 50, nullable = false)
     private String ward;
 
-    @Column(name = "home_number", length = 50, nullable = false)
+    @Column(name = "home_number", length = 100, nullable = false)
     private String homeNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)

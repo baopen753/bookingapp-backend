@@ -1,12 +1,13 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.ftf.koifishveterinaryservicecenter.entity.user_voucher.UserVoucher;
+import org.baopen753.bookingappbackend.entities.user_voucher.UserVoucher;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
 
 @Entity
 @Data

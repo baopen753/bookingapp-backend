@@ -1,8 +1,8 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.ftf.koifishveterinaryservicecenter.entity.veterinarian_slots.VeterinarianSlots;
+import org.baopen753.bookingappbackend.entities.veterinarian_slots.VeterinarianSlots;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -12,11 +12,8 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
-
 @Entity
 @Table(name = "time_slots")
 public class TimeSlot {
@@ -38,9 +35,9 @@ public class TimeSlot {
     @Column(name = "slot_order", nullable = false)
     private Integer slotOrder;
 
-    //    @Lob
-    @Column(name = "description", nullable = true, columnDefinition = "TEXT")
+    @Column(name = "description", nullable = false)
     private String description;
+
 
     // Bidirectional, identifying relationship
     // Owning side: Appointment
@@ -51,15 +48,6 @@ public class TimeSlot {
     // Bidirectional, identifying  relationship
     // Owning side: VeterinarianSlots
     // Inverse side: TimeSlot
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(
-//            name = "veterinarian_slots",
-//            joinColumns = @JoinColumn(name = "slot_id"),
-//            inverseJoinColumns = @JoinColumn(name = "veterinarian_id")
-//    )
-//    private Set<User> veterinarians = new LinkedHashSet<>();
-
-
     @OneToMany(mappedBy = "timeSlot", orphanRemoval = true)
     private Set<VeterinarianSlots> veterinarianSlots = new LinkedHashSet<>();
 

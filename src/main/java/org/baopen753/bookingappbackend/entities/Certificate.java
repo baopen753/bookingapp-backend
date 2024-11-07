@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 
 import jakarta.persistence.*;

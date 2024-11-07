@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -22,11 +22,11 @@ public class Feedback {
     @Column(name = "rating", nullable = true)
     private Integer rating;
 
-    //  @Lob
+
     @Column(name = "comment", nullable = true, columnDefinition = "TEXT")
     private String comment;
 
-    @Column(name = "datetime", nullable = false, columnDefinition = "DATETIME")
+    @Column(name = "datetime", nullable = false)
     private LocalDateTime datetime;
 
     // Bidirectional, identifying relationship
@@ -54,7 +54,7 @@ public class Feedback {
     // Owning side: Appointment
     // Inverse side: Feedback
     @JsonIgnore
-    @OneToOne(mappedBy = "feedback", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "feedback")
     private Appointment appointment;
 
 }

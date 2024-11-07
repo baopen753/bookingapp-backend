@@ -1,11 +1,11 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.ftf.koifishveterinaryservicecenter.entity.prescription_medicine.PrescriptionMedicine;
+import org.baopen753.bookingappbackend.entities.prescription_medicine.PrescriptionMedicine;
 
 import java.util.Set;
 

@@ -1,4 +1,4 @@
-package org.baopen753.bookingappbackend.entity;
+package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,12 +19,11 @@ public class Status {
 
     //    @Enumerated(EnumType.STRING)
     @Column(name = "status_name", nullable = false)
-    private String statusName;
+    private  statusName;
 
-    @Column(name = "time", nullable = false, columnDefinition = "DATETIME")
+    @Column(name = "time", nullable = false)
     private LocalDateTime time;
 
-    //@Lob --- use columnDefinition = "TEXT" to define type of field in database
     @Column(name = "note", nullable = true, columnDefinition = "TEXT")
     private String note;
 
