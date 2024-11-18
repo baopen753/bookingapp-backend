@@ -2,6 +2,7 @@ package org.baopen753.bookingappbackend.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
@@ -15,7 +16,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "services")
-public class Service {
+public class Service extends RepresentationModel<Service> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

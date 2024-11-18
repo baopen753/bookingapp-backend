@@ -18,7 +18,6 @@ public class UserController {
     private final MyUserDetailsService myUserService;
     private final PasswordEncoder passwordEncoder;
 
-
     @Autowired
     public UserController(MyUserDetailsService userService, PasswordEncoder passwordEncoder) {
         this.myUserService = userService;
@@ -34,7 +33,6 @@ public class UserController {
     }
 
 
-//
 //    @GetMapping("/profile")
 //    public ResponseEntity<?> getProfile(@RequestParam Integer userId) {
 //

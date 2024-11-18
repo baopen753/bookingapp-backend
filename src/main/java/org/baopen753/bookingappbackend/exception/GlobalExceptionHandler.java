@@ -1,6 +1,8 @@
 package org.baopen753.bookingappbackend.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.java.Log;
+import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return errorDTO;
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorDTO handleBadRequestException(HttpServletRequest request, BadRequestException exception) {
+        LOGGER.error("Bad request: {}", exception.getMessage());
+
+        // customize Response Body
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setTimeStamp(new Date());
+        errorDTO.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorDTO.setPath(request.getServletPath());
+        errorDTO.addError(exception.getMessage());
+
+        return errorDTO;
+    }
 
     @ExceptionHandler(DataNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

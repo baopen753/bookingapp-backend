@@ -41,7 +41,7 @@ public class ServiceController {
     }
 
 
-    @PreAuthorize("hasAuthority('MANAGER')")
+    //@PreAuthorize("hasAuthority('MANAGER')")
     @PatchMapping("/{serviceId}")
     public ResponseEntity<?> updateServicePrice(@PathVariable Integer serviceId, @RequestBody ServiceDto serviceDto) {
         if (serviceDto.getServicePrice() == null) return ResponseEntity.badRequest().build();

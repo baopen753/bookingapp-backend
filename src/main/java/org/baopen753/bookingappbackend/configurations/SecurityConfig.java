@@ -1,6 +1,7 @@
 package org.baopen753.bookingappbackend.configurations;
 
-import org.baopen753.bookingappbackend.filters.CsrfCookieFilter;
+import org.baopen753.bookingappbackend.exception.MyAccessDeniedHandlerImpl;
+import org.baopen753.bookingappbackend.exception.MyBasicAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -9,14 +10,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
+
 
 @Configuration
 @EnableWebSecurity  // active spring web security
@@ -25,7 +22,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//
+
 //        CsrfTokenRequestAttributeHandler requestAttributeHandler = new CsrfTokenRequestAttributeHandler();
 //        requestAttributeHandler.setCsrfRequestAttributeName("_csrf");
 //
@@ -33,33 +30,30 @@ public class SecurityConfig {
 //
 //        // config non-session
 //        http.sessionManagement(ssm -> ssm.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
-//
-//        // if encounters errors, send back to /login
-//        http.formLogin(AbstractHttpConfigurer::disable);
+
 
         http.csrf(AbstractHttpConfigurer::disable);
-
-        http.formLogin(Customizer.withDefaults());
-        http.httpBasic(Customizer.withDefaults());
-//
-//
 //        http.csrf(csrfConfig -> csrfConfig.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
 //                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
 
 
+        http.formLogin(Customizer.withDefaults());
+//      http.formLogin(AbstractHttpConfigurer::disable);       if encounters errors, send back to /login
+
+        http.httpBasic(hbc -> hbc.authenticationEntryPoint(new MyBasicAuthenticationEntryPoint()));          // config with customized AuthenticationEntryPoint
+//        http.exceptionHandling(ehc -> ehc.authenticationEntryPoint(new MyBasicAuthenticationEntryPoint()));    // config globally with customized AuthenticationEntryPoint
+        http.exceptionHandling(ehc -> ehc.accessDeniedHandler(new MyAccessDeniedHandlerImpl()));               // config globally with customized AccessDeniedHandler
+
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers("api/v1/auth/login", "api/v1/users/register").permitAll()
+                .requestMatchers(HttpMethod.PATCH, "api/v1/services/{serviceId}").hasAuthority("MANAGER")
                 .anyRequest().authenticated());
         return http.build();
     }
 
 
     @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//    }
-
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    //        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 }
