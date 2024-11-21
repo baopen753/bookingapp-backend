@@ -2,12 +2,14 @@ package org.baopen753.bookingappbackend.controllers;
 
 import jakarta.annotation.security.RolesAllowed;
 import org.baopen753.bookingappbackend.dtos.UserDto;
+import org.baopen753.bookingappbackend.entities.User;
 import org.baopen753.bookingappbackend.services.userservice.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,16 +34,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Register account successfully !");
     }
 
+    @GetMapping("/profile")
+    public ResponseEntity<?> getProfile(Authentication authentication) {
+        UserDetails userDetails = myUserService.loadUserByUsername(authentication.getName());
+        return ResponseEntity.ok(userDetails);
+    }
 
-//    @GetMapping("/profile")
-//    public ResponseEntity<?> getProfile(@RequestParam Integer userId) {
-//
-//        Integer userIdFromToken = 1;  // the userId takes from Authentication object in SecurityContext
-//        User user = userService.getUserProfile(userId);
-//        UserDto userDto = UserMapper.INSTANCE.convertEntityToDto(user);
-//        return ResponseEntity.ok(userDto);
-//    }
-//
+
 //    @PutMapping("/address")
 //    public ResponseEntity<?> updateAddressForCustomer(@RequestParam Integer userId, @RequestBody AddressDto addressFromRequest) {
 //

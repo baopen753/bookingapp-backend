@@ -6,6 +6,7 @@ import org.baopen753.bookingappbackend.mappers.ServiceMapper;
 import org.baopen753.bookingappbackend.responses.service.ServiceResponse;
 import org.baopen753.bookingappbackend.services.serviceservice.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ public class ServiceController {
     public ServiceController(ServiceService serviceService) {
         this.serviceService = serviceService;
     }
+
 
     @GetMapping("/all")
     public ResponseEntity<?> getServices() {

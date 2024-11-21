@@ -26,7 +26,7 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
 
-    public User getUserProfile(Integer userId) {
+    public User getUserByUsername(String username) {
         return null;
     }
 
