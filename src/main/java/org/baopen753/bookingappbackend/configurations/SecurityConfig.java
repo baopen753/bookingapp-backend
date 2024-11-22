@@ -1,10 +1,10 @@
 package org.baopen753.bookingappbackend.configurations;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.baopen753.bookingappbackend.exception.MyAccessDeniedHandlerImpl;
 import org.baopen753.bookingappbackend.exception.MyBasicAuthenticationEntryPoint;
 import org.baopen753.bookingappbackend.filters.CsrfCookieFilter;
 import org.baopen753.bookingappbackend.filters.JwtGeneratorFilter;
+import org.baopen753.bookingappbackend.filters.JwtValidatorFilter;
 import org.baopen753.bookingappbackend.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -64,8 +64,9 @@ public class SecurityConfig {
         http.csrf(csrfConfig -> csrfConfig.csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()));
         http.csrf(csrfConfig -> csrfConfig.ignoringRequestMatchers("api/v1/users/register"));
 
-        http.addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);                  // once basic authN is completed, spring fw will generate csrf token
+        http.addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);                                         // once basic authN is completed, spring fw will generate csrf token
         http.addFilterAfter(new JwtGeneratorFilter(JWT_SECRET_KEY, JWT_HEADER, jwtUtils), BasicAuthenticationFilter.class);   // generate jwt in very first time login
+        http.addFilterBefore(new JwtValidatorFilter(JWT_SECRET_KEY,JWT_HEADER,jwtUtils), BasicAuthenticationFilter.class);    // for up-coming request, validate jwt before process authentication to prevent unnecessary requests
 
         http.formLogin(Customizer.withDefaults());
 //      http.formLogin(AbstractHttpConfigurer::disable);       if encounters errors, send back to /login
@@ -74,7 +75,7 @@ public class SecurityConfig {
 //      http.exceptionHandling(ehc -> ehc.authenticationEntryPoint(new MyBasicAuthenticationEntryPoint()));    // config globally with customized AuthenticationEntryPoint
         http.exceptionHandling(ehc -> ehc.accessDeniedHandler(new MyAccessDeniedHandlerImpl()));               // config globally with customized AccessDeniedHandler
 
-        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers("api/v1/auth/login", "api/v1/users/register").permitAll()
+        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers("api/v1/users/profile", "api/v1/users/register").permitAll()
                 .requestMatchers(HttpMethod.PATCH, "api/v1/services/{serviceId}").hasAuthority("MANAGER")
                 .anyRequest().authenticated());
         return http.build();

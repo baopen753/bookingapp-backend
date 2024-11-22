@@ -49,7 +49,7 @@ public class JwtGeneratorFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return !request.getServletPath().equals("/api/v1/users/profile");   // only run this filter when request to /profile path to perform login operation
+        return !request.getServletPath().equals("/api/v1/users/profile");   // only run this filter when requesting to /profile path to perform login operation
     }
 }
 

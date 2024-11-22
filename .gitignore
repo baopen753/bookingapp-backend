@@ -19,3 +19,5 @@ target/
 *.iml
 *.ipr
 
+# ignore application yaml
+application-*.yaml
