@@ -22,7 +22,6 @@ public class ServiceController {
         this.serviceService = serviceService;
     }
 
-
     @GetMapping("/all")
     public ResponseEntity<?> getServices() {
         List<Service> serviceList = serviceService.getAllServices();
@@ -30,7 +29,6 @@ public class ServiceController {
         List<ServiceResponse> serviceResponseList = serviceList.stream().map(ServiceMapper.INSTANCE::convertToResponse).toList();
         return ResponseEntity.ok(serviceResponseList);
     }
-
 
     @GetMapping("/{serviceId}")
     public ResponseEntity<?> getService(@PathVariable Integer serviceId) {
@@ -40,12 +38,10 @@ public class ServiceController {
         return ResponseEntity.ok(serviceResponse);
     }
 
-
     //@PreAuthorize("hasAuthority('MANAGER')")
     @PatchMapping("/{serviceId}")
     public ResponseEntity<?> updateServicePrice(@PathVariable Integer serviceId, @RequestBody ServiceDto serviceDto) {
-        if (serviceDto.getServicePrice() == null) return ResponseEntity.badRequest().build();
-        Service updatedService = serviceService.updateServicePrice(serviceId, Double.parseDouble(String.valueOf(serviceDto.getServicePrice())));
+        Service updatedService = serviceService.updateServicePrice(serviceId, serviceDto.getServicePrice());
         ServiceResponse serviceResponse = ServiceMapper.INSTANCE.convertToResponse(updatedService);
         return ResponseEntity.ok(serviceResponse);
     }

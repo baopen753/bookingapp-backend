@@ -1,8 +1,6 @@
 package org.baopen753.bookingappbackend.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.java.Log;
-import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

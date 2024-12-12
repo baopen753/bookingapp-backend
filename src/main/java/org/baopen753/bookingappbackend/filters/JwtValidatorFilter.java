@@ -2,7 +2,6 @@ package org.baopen753.bookingappbackend.filters;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -65,3 +64,4 @@ public class JwtValidatorFilter extends OncePerRequestFilter {
         return request.getServletPath().equals("/api/v1/users/profile");   // run filter everytime to validate token except login operation
     }
 }
+    

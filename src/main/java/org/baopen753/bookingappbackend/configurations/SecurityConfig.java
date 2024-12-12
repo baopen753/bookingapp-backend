@@ -10,14 +10,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.password.CompromisedPasswordChecker;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.*;
 import org.springframework.web.cors.CorsConfiguration;
@@ -36,10 +41,15 @@ public class SecurityConfig {
     @Value("${jwt.header}")
     private String JWT_HEADER;
 
+    private final JwtUtils jwtUtils;
+
+    public SecurityConfig(JwtUtils jwtUtils) {
+        this.jwtUtils = jwtUtils;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        JwtUtils jwtUtils = new JwtUtils();
 
         // session is created for every request, even if authentication is not needed
         http.sessionManagement(ssm -> ssm.sessionCreationPolicy(SessionCreationPolicy.STATELESS));    // make backend app is stateless --> No session management
@@ -62,11 +72,11 @@ public class SecurityConfig {
         // csrf configuration
         http.csrf(csrfConfig -> csrfConfig.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
         http.csrf(csrfConfig -> csrfConfig.csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()));
-        http.csrf(csrfConfig -> csrfConfig.ignoringRequestMatchers("api/v1/users/register"));
+        http.csrf(csrfConfig -> csrfConfig.ignoringRequestMatchers("api/v1/users/register","api/v1/users/login"));
 
         http.addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);                                         // once basic authN is completed, spring fw will generate csrf token
         http.addFilterAfter(new JwtGeneratorFilter(JWT_SECRET_KEY, JWT_HEADER, jwtUtils), BasicAuthenticationFilter.class);   // generate jwt in very first time login
-        http.addFilterBefore(new JwtValidatorFilter(JWT_SECRET_KEY,JWT_HEADER,jwtUtils), BasicAuthenticationFilter.class);    // for up-coming request, validate jwt before process authentication to prevent unnecessary requests
+        http.addFilterBefore(new JwtValidatorFilter(JWT_SECRET_KEY, JWT_HEADER, jwtUtils), BasicAuthenticationFilter.class);    // for up-coming request, validate jwt before process authentication to prevent unnecessary requests
 
         http.formLogin(Customizer.withDefaults());
 //      http.formLogin(AbstractHttpConfigurer::disable);       if encounters errors, send back to /login
@@ -75,7 +85,7 @@ public class SecurityConfig {
 //      http.exceptionHandling(ehc -> ehc.authenticationEntryPoint(new MyBasicAuthenticationEntryPoint()));    // config globally with customized AuthenticationEntryPoint
         http.exceptionHandling(ehc -> ehc.accessDeniedHandler(new MyAccessDeniedHandlerImpl()));               // config globally with customized AccessDeniedHandler
 
-        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers("api/v1/users/profile", "api/v1/users/register").permitAll()
+        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers("api/v1/users/profile", "api/v1/users/register","api/v1/users/login").permitAll()   // public endpoint
                 .requestMatchers(HttpMethod.PATCH, "api/v1/services/{serviceId}").hasAuthority("MANAGER")
                 .anyRequest().authenticated());
         return http.build();
@@ -87,4 +97,20 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
     //        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+
+    // check password convention
+    @Bean
+    public CompromisedPasswordChecker compromisedPasswordChecker() {
+        return new HaveIBeenPwnedRestApiPasswordChecker();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        MyAuthenticationProvider myAuthenticationProvider = new MyAuthenticationProvider(userDetailsService, passwordEncoder);
+        ProviderManager providerManager = new ProviderManager(myAuthenticationProvider);
+        providerManager.setEraseCredentialsAfterAuthentication(false);
+        return providerManager;
+    }
+
 }

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    User findUsersByUserId(int userId);
+    User findUsersByUserId(Integer userId);
 
     @Query("SELECT u FROM User u WHERE u.userId = :veterinarianId AND u.role = :role")
     User findVeterinarianById(@Param("veterinarianId") Integer veterinarianId, @Param("role") Role role);

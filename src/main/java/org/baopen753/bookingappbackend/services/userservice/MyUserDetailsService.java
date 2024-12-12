@@ -25,11 +25,9 @@ public class MyUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-
     public User getUserByUsername(String username) {
         return null;
     }
-
 
     public User updateAddress(Integer userId, Address convertedAddress) {
         return null;
